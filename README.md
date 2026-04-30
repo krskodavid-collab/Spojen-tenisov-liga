@@ -1,90 +1,95 @@
 # Spojená tenisová liga
 
 Webová stránka pre správu amatérskej tenisovej ligy s 3 divíziami (A/B/C),
-automatickými tabuľkami, rozpisom zápasov a štatistikami.
+automatickými tabuľkami, rozpisom zápasov, štatistikami, propozíciami a galériou.
 
-## Súbory
+## Súbory v priečinku
 
 - `index.html` — celá stránka v jednom súbore (HTML + CSS + JS)
 - `logo.svg` — hlavné logo
 - `favicon.svg` — ikona do záložky prehliadača
+- `propozicie.pdf` — *(nepovinné)* PDF s propozíciami, ktoré sa zobrazí na stránke
 
-## Ako stránku používať lokálne
+## Prihlásenie do administrácie
 
-Stačí dvakrát kliknúť na `index.html` — otvorí sa v prehliadači.
-Dáta sa ukladajú v prehliadači (localStorage).
+**Predvolené prihlasovacie údaje:**
 
-> Tip: Ak chceš mať dáta zálohované, v sekcii **Admin → Dáta** klikni na
-> **Export JSON**. Súbor si odlož na disk alebo do cloudu.
+- Meno: `admin`
+- Heslo: `stl2026`
 
----
+**Hneď po prvom prihlásení** v záložke **Admin → Prihlasovacie údaje** zmeň
+heslo na vlastné. Heslo je uložené v prehliadači — funguje len pre bežných
+návštevníkov, takže nezadávaj nič super tajné.
 
-## Ako stránku publikovať na internet zadarmo (GitHub Pages)
-
-1. **Vytvor si účet na GitHub.com** (ak ešte nemáš).
-2. Klikni vpravo hore na **+** → **New repository**.
-3. Pomenuj repozitár napr. `spojena-tenisova-liga`, nastav **Public**, klikni **Create repository**.
-4. Na stránke nového repozitára klikni **uploading an existing file** (modrý link v strede).
-5. Pretiahni do okna všetky súbory z tohto priečinka:
-   - `index.html`
-   - `logo.svg`
-   - `favicon.svg`
-6. Klikni **Commit changes**.
-7. Choď do **Settings** (záložka hore) → vľavo **Pages**.
-8. V sekcii *Build and deployment* nastav:
-   - **Source:** *Deploy from a branch*
-   - **Branch:** `main`, priečinok `/ (root)` → klikni **Save**.
-9. Po 1–2 minútach sa hore objaví adresa typu:
-   `https://tvoj-username.github.io/spojena-tenisova-liga/`
-
-Túto adresu môžeš poslať hráčom — uvidia rovnakú stránku ako ty.
-
-> Pozor: dáta sú lokálne v *tvojom* prehliadači. Ak chceš, aby všetci videli
-> tie isté výsledky, môžeš si uložiť `data.json` priamo do repozitára
-> (rozšírenie pre neskôr) — pre začiatok stačí, že ty ako admin
-> spravuješ ligu zo svojho zariadenia.
+Bez prihlásenia môže každý stránku iba prezerať. **Pridať/zmeniť výsledok,
+upravovať hráčov, nahrávať fotky alebo meniť propozície môže iba prihlásený admin.**
 
 ---
 
-## Ako pracovať so stránkou
+## Aktualizácia stránky na GitHube (po zmenách)
 
-### 1. Hráči
-V **Admin → Hráči a divízie** prepíš mená demo hráčov na svojich.
-Skontroluj, že počty sedia (A: 7, B: 7, C: 6).
-Klikni **Uložiť zmeny**.
+Keď ti pripravím novú verziu súboru `index.html` (alebo iných), nahraj ju takto:
 
-### 2. Pre-generuj rozpis
-V **Admin → Cyklus** klikni **Pre-generovať rozpis** — vytvorí všetky
-zápasy systémom „každý s každým" v rámci divízie.
+1. Choď na svoj repozitár na GitHube
+2. Klikni na súbor, ktorý chceš nahradiť (napr. `index.html`)
+3. Vpravo hore klikni **ikonu ceruzky** (Upraviť) alebo **„Pridať súbor → Nahrať súbory"**
+4. Pretiahni nový súbor a klikni **Commit changes**
+5. Počkaj 1–2 minúty — stránka sa automaticky aktualizuje
 
-### 3. Pridávanie výsledkov
-V **Rozpis** klikni na zápas → vyplň gemy v setoch → **Uložiť**.
-Tabuľky a štatistiky sa prepočítajú automaticky.
-
-### 4. Po skončení cyklu
-V **Admin → Cyklus** klikni **Ukončiť cyklus a aplikovať postupy**.
-Posledných 2 z A padnú do B, prví 2 z B postúpia do A, atď.
-Stránka automaticky vygeneruje rozpis pre nový cyklus.
+**Dáta zostávajú zachované** (hráči, výsledky, fotky, propozície sú v
+prehliadači). Pred väčšími zmenami si ich však pre istotu zálohuj cez
+**Admin → Dáta → Export JSON**.
 
 ---
 
-## Bodovanie
+## Sekcie stránky
+
+- **Tabuľky** — automaticky prepočítané poradie v každej divízii
+- **Rozpis** — všetky zápasy cyklu rozdelené do kôl
+- **Výsledky** — chronológia odohraných zápasov
+- **Štatistiky** — celkové čísla + lídri kategórií (najviac výhier, najlepšia
+  šnúra, najsuverénnejší, najurputnejší...)
+- **Propozície** — pravidlá ligy (text + voliteľný PDF na stiahnutie)
+- **Galéria** — fotky zo zápasov a udalostí
+- **Admin** — správa všetkého (po prihlásení)
+
+## Bodovanie podľa setov
 
 | Výsledok | Víťaz | Porazený |
 |---|---|---|
 | 2:0 v setoch | **3 body** | 0 bodov |
 | 2:1 v setoch | **2 body** | 1 bod |
 
-## Pravidlá poradia pri rovnosti bodov
-
-1. Vyšší počet bodov
-2. Vzájomný zápas
-3. Rozdiel setov
-4. Rozdiel gemov
-5. Abeceda (záložná)
+Pri rovnosti bodov rozhoduje: vzájomný zápas → rozdiel setov → rozdiel gemov → abeceda.
 
 ## Postupy / pády po cykle
 
-- **A divízia** → posledných 2 padá do B
-- **B divízia** → prví 2 postupujú do A, posledných 2 padá do C
-- **C divízia** → prví 2 postupujú do B
+- **A** → poslední 2 padajú do B
+- **B** → prví 2 postupujú do A, poslední 2 padajú do C
+- **C** → prví 2 postupujú do B
+
+---
+
+## Ako pridať PDF propozícií
+
+1. Pripravený PDF si pomenuj napr. `propozicie.pdf`
+2. Nahraj ho na GitHub do toho istého priečinka ako `index.html`
+3. V stránke **Propozície → admin** zadaj presný názov súboru (`propozicie.pdf`)
+4. Klikni **Uložiť** — na stránke sa objaví karta s odkazom na PDF
+
+## Zálohovanie
+
+Pred každou väčšou zmenou (napr. ukončenie cyklu) si stiahni zálohu:
+**Admin → Dáta → ⬇ Export JSON**
+
+Záloha obsahuje aj fotky, propozície, hráčov a všetky výsledky.
+V prípade problému ju vieš znovu nahrať cez **Import JSON**.
+
+## Tipy
+
+- Fotky sa pri nahraní automaticky zmenšia (max šírka 1400px), aby zaberali
+  menej miesta. Limit prehliadača je cca 5–10 MB pre všetky fotky spolu.
+- Termín cyklu sa zobrazuje v hlavičke aj v rozpise. 7 dní pred koncom sa
+  zafarbí oranžovo, po termíne červeno.
+- Stránka funguje aj na mobile — celá tabuľka sa zúži a niektoré stĺpce
+  sa skryjú pre lepšiu čitateľnosť.
