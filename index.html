@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spojená tenisová liga</title>
+<title>Spojená tenisová liga 2026</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,6 +20,9 @@
     --accent: #a8e10c;
     --accent-2: #d9ff3d;
     --accent-3: #5d8a00;
+    --gold: #f5c518;
+    --silver: #c0c5cc;
+    --bronze: #cd7f32;
     --green: #22c55e;
     --red: #ef4444;
     --yellow: #fbbf24;
@@ -100,8 +103,8 @@
   }
   .tab-btn {
     flex: 1;
-    min-width: 100px;
-    padding: 10px 14px;
+    min-width: 90px;
+    padding: 10px 12px;
     background: transparent;
     border: none;
     color: var(--text-2);
@@ -111,6 +114,7 @@
     border-radius: 8px;
     transition: all 0.15s;
     white-space: nowrap;
+    font-family: inherit;
   }
   .tab-btn:hover { color: var(--text); background: var(--card-2); }
   .tab-btn.active {
@@ -167,9 +171,9 @@
     font-weight: 800;
     font-size: 16px;
   }
-  .div-A { background: linear-gradient(135deg, #d9ff3d, #a8e10c); color: #0a0a0a; }
-  .div-B { background: linear-gradient(135deg, #94a3b8, #475569); color: #f5f5f5; }
-  .div-C { background: linear-gradient(135deg, #57534e, #292524); color: #f5f5f5; }
+  .div-A { background: linear-gradient(135deg, var(--gold), #c79100); color: #0a0a0a; }
+  .div-B { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #0a0a0a; }
+  .div-C { background: linear-gradient(135deg, #d97706, #92400e); color: #f5f5f5; }
 
   /* ===== TABLES ===== */
   .table-wrap { overflow-x: auto; }
@@ -199,8 +203,8 @@
     font-weight: 700;
     font-size: 13px;
   }
-  .pos.promote { background: rgba(34, 197, 94, 0.18); color: var(--green); }
-  .pos.relegate { background: rgba(239, 68, 68, 0.18); color: var(--red); }
+  .pos.playoff { background: rgba(168, 225, 12, 0.18); color: var(--accent); }
+  .pos.first { background: linear-gradient(135deg, var(--gold), #c79100); color: #0a0a0a; }
   .player-name { font-weight: 600; }
   .points { font-weight: 800; color: var(--accent); font-size: 16px; }
 
@@ -211,7 +215,7 @@
     gap: 14px;
     margin-bottom: 20px;
   }
-  .stat-card {
+  .stat-card, .stat-leader {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -219,13 +223,6 @@
   }
   .stat-label { color: var(--text-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 700; }
   .stat-value { font-size: 26px; font-weight: 800; color: var(--accent); }
-  .stat-sub { color: var(--text-2); font-size: 12px; margin-top: 4px; }
-  .stat-leader {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px;
-  }
   .stat-leader-title {
     font-size: 12px;
     text-transform: uppercase;
@@ -326,7 +323,6 @@
     max-height: 90vh;
     overflow-y: auto;
   }
-  .modal.wide { max-width: 720px; }
   .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; }
   .modal-close {
     float: right;
@@ -383,7 +379,7 @@
   }
   .player-row:hover { background: var(--card-2); }
   .player-row input { flex: 1; }
-  .player-row select { width: 80px; }
+  .player-row select { width: 90px; }
   .login-prompt {
     background: var(--card);
     border: 1px solid var(--border);
@@ -512,6 +508,101 @@
   .lightbox img { max-width: 95%; max-height: 85vh; object-fit: contain; }
   .lightbox-caption { color: white; margin-top: 12px; font-size: 14px; }
 
+  /* ===== PLAY-OFF BRACKET ===== */
+  .bracket-section { margin-bottom: 36px; }
+  .bracket-section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bracket-section-title { font-size: 18px; font-weight: 800; }
+
+  .bracket {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 16px 0;
+  }
+  .bracket-round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-shrink: 0;
+    min-width: 240px;
+    gap: 16px;
+  }
+  .bracket-round-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    margin-bottom: 4px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .bracket-round-title.final { color: var(--accent); }
+  .bracket-match {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.15s;
+  }
+  .bracket-match.clickable { cursor: pointer; }
+  .bracket-match.clickable:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .bracket-match.is-final { border-color: var(--accent); box-shadow: 0 0 24px rgba(168,225,12,0.15); }
+  .bracket-team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .bracket-team:last-child { border-bottom: none; }
+  .bracket-team.winner { background: rgba(168,225,12,0.08); color: var(--accent); font-weight: 800; }
+  .bracket-team.loser { color: var(--text-2); opacity: 0.65; }
+  .bracket-team.tba { color: var(--text-3); font-style: italic; font-weight: 500; }
+  .bracket-team .score {
+    background: var(--card-2);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    min-width: 26px;
+    text-align: center;
+  }
+  .bracket-team.winner .score { background: var(--accent); color: #0a0a0a; }
+  .bracket-team.bye { background: var(--card-2); color: var(--text-3); font-style: italic; }
+  .bracket-meta {
+    background: var(--bg-2);
+    padding: 6px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-3);
+    font-weight: 700;
+  }
+  .bracket-champion {
+    background: linear-gradient(135deg, var(--gold), #c79100);
+    color: #0a0a0a;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 800;
+  }
+  .bracket-champion .trophy { font-size: 24px; margin-bottom: 4px; }
+  .bracket-champion .name { font-size: 18px; }
+  .bracket-champion .label { font-size: 11px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+
   /* ===== FOOTER ===== */
   footer {
     margin-top: 40px;
@@ -524,7 +615,7 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 600px) {
-    .brand-text h1 { font-size: 15px; }
+    .brand-text h1 { font-size: 14px; }
     .brand-text p { font-size: 9px; }
     .brand-logo { width: 40px; height: 40px; }
     .view-header h2 { font-size: 18px; }
@@ -534,6 +625,7 @@
     th, td { padding: 8px 6px; font-size: 12px; }
     th.hide-sm, td.hide-sm { display: none; }
     .badge { font-size: 11px; padding: 6px 10px; }
+    .bracket-round { min-width: 200px; }
   }
 
   /* ===== EMPTY ===== */
@@ -548,19 +640,22 @@
   .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-top: 12px; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .legend-dot.promote { background: var(--green); }
-  .legend-dot.relegate { background: var(--red); }
+  .legend-dot.playoff { background: var(--accent); }
 
-  /* alert box */
+  /* ===== ALERT ===== */
   .alert {
-    padding: 12px 16px;
-    border-radius: 8px;
+    padding: 14px 16px;
+    border-radius: 10px;
     margin-bottom: 16px;
     font-size: 14px;
     border: 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
+  .alert.info { background: rgba(168,225,12,0.08); border-color: var(--accent-3); color: var(--text); }
   .alert.warn { background: rgba(249,115,22,0.1); border-color: var(--orange); color: var(--orange); }
-  .alert.info { background: rgba(168,225,12,0.08); border-color: var(--accent-3); color: var(--accent); }
+  .alert .icon { font-size: 22px; }
 </style>
 </head>
 <body>
@@ -587,7 +682,7 @@
       </svg>
       <div class="brand-text">
         <h1>SPOJENÁ TENISOVÁ LIGA</h1>
-        <p>Cyklus <span id="cycleHeaderNum">1</span> · <span id="totalMatchesPlayed">0</span>/<span id="totalMatchesScheduled">0</span> zápasov</p>
+        <p>Sezóna <span id="seasonLabel">2026</span> · Cyklus <span id="cycleHeaderNum">1</span>/<span id="totalCyclesLabel">2</span> · <span id="totalMatchesPlayed">0</span>/<span id="totalMatchesScheduled">0</span></p>
       </div>
     </div>
     <div class="header-right">
@@ -603,6 +698,7 @@
     <button class="tab-btn active" data-tab="standings">Tabuľky</button>
     <button class="tab-btn" data-tab="schedule">Rozpis</button>
     <button class="tab-btn" data-tab="results">Výsledky</button>
+    <button class="tab-btn" data-tab="playoff">Play-off</button>
     <button class="tab-btn" data-tab="stats">Štatistiky</button>
     <button class="tab-btn" data-tab="propozicie">Propozície</button>
     <button class="tab-btn" data-tab="gallery">Galéria</button>
@@ -613,14 +709,16 @@
   <section id="view-standings" class="view active">
     <div class="view-header">
       <div>
-        <h2>Tabuľky divízií</h2>
-        <p>Cyklus <span class="cycle-num">1</span> · bodovanie podľa setov (2:0 → 3 b., 2:1 → 2 b. + 1 b.)</p>
+        <h2>Tabuľky</h2>
+        <p id="standingsSubtitle">Sezónny súčet bodov za Cyklus 1 + Cyklus 2 · bodovanie podľa setov (2:0 → 3 b., 2:1 → 2 b. + 1 b.)</p>
+      </div>
+      <div>
+        <button class="btn small secondary" id="standingsModeBtn" onclick="toggleStandingsMode()">Cyklus <span id="cycleModeNum">1</span></button>
       </div>
     </div>
     <div id="standingsContainer"></div>
     <div class="legend">
-      <div class="legend-item"><span class="legend-dot promote"></span>Postup do vyššej divízie</div>
-      <div class="legend-item"><span class="legend-dot relegate"></span>Pád do nižšej divízie</div>
+      <div class="legend-item"><span class="legend-dot playoff"></span>Postup do play-off (všetci hráči divízie)</div>
     </div>
   </section>
 
@@ -629,7 +727,10 @@
     <div class="view-header">
       <div>
         <h2>Rozpis zápasov</h2>
-        <p id="scheduleSubtitle">Klikni na zápas a pridaj výsledok</p>
+        <p id="scheduleSubtitle">Klikni na zápas a pridaj výsledok (admin)</p>
+      </div>
+      <div>
+        <button class="btn small secondary" id="scheduleCycleBtn" onclick="toggleScheduleCycle()">Cyklus <span id="scheduleCycleNum">1</span></button>
       </div>
     </div>
     <div id="scheduleContainer"></div>
@@ -646,6 +747,17 @@
     <div class="card">
       <div id="resultsContainer"></div>
     </div>
+  </section>
+
+  <!-- ===== PLAY-OFF ===== -->
+  <section id="view-playoff" class="view">
+    <div class="view-header">
+      <div>
+        <h2>Play-off sezóny <span class="season-num">2026</span></h2>
+        <p>Vyraďovacia časť po skončení 2. cyklu</p>
+      </div>
+    </div>
+    <div id="playoffContainer"></div>
   </section>
 
   <!-- ===== ŠTATISTIKY ===== -->
@@ -665,17 +777,14 @@
       <div class="card-header"><div class="card-title">Top 10 — najviac víťazstiev</div></div>
       <div id="topWinners"></div>
     </div>
-
     <div class="card">
       <div class="card-header"><div class="card-title">Top 10 — najlepšia úspešnosť (min. 3 zápasy)</div></div>
       <div id="topWinrate"></div>
     </div>
-
     <div class="card">
       <div class="card-header"><div class="card-title">Top 10 — najdlhšia výherná šnúra</div></div>
       <div id="topStreak"></div>
     </div>
-
     <div class="card">
       <div class="card-header"><div class="card-title">Top 10 — najviac odohratých zápasov</div></div>
       <div id="topPlayed"></div>
@@ -690,11 +799,8 @@
         <p>Pravidlá, systém hry a všetky dôležité informácie</p>
       </div>
     </div>
-
     <div id="pdfCardContainer"></div>
-
     <div class="propozicie-text" id="propozicieTextDisplay"></div>
-
     <div id="adminEditPropozicie" style="display:none;">
       <div class="card">
         <div class="card-header"><div class="card-title">Úprava propozícií (admin)</div></div>
@@ -775,24 +881,23 @@
           <button class="btn small" onclick="savePlayers()">Uložiť zmeny</button>
           <button class="btn small secondary" onclick="render()">Zrušiť</button>
         </div>
+        <p style="color:var(--text-3); font-size:12px; margin-top:12px;">
+          Po zmene hráčov klikni na <strong>„Pre-generovať rozpis"</strong> nižšie, aby sa vytvoril nový rozpis zápasov.
+        </p>
       </div>
 
       <div class="card admin-section">
-        <div class="card-header"><div class="card-title">Cyklus</div></div>
-        <p style="color:var(--text-2); font-size:14px; margin-bottom:12px;">
-          Aktuálny cyklus: <strong style="color:var(--accent);">Cyklus <span class="cycle-num">1</span></strong>.
-          Po skončení cyklu sa aplikujú postupy/pády (z A padá posledných 2, z B postupujú prví 2 a padajú poslední 2, z C postupujú prví 2).
+        <div class="card-header"><div class="card-title">Cykly a play-off</div></div>
+        <p style="color:var(--text-2); font-size:14px; margin-bottom:12px;" id="cycleStatusText">
+          Aktuálny stav: <strong style="color:var(--accent);">Cyklus <span class="cycle-num">1</span></strong> zo sezóny.
         </p>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button class="btn" onclick="advanceCycle()">Ukončiť cyklus a aplikovať postupy →</button>
-          <button class="btn secondary" onclick="regenerateSchedule()">Pre-generovať rozpis</button>
-        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;" id="cycleAdminButtons"></div>
       </div>
 
       <div class="card admin-section">
         <div class="card-header"><div class="card-title">Prihlasovacie údaje</div></div>
         <p style="color:var(--text-2); font-size:14px; margin-bottom:12px;">
-          Zmena prihlasovacieho mena a hesla. <strong>Pozor:</strong> heslo je uložené v prehliadači, nie je to silné šifrovanie — slúži len na ochranu pred bežnými návštevníkmi.
+          Zmena prihlasovacieho mena a hesla. <strong>Pozor:</strong> heslo je uložené v prehliadači, slúži len na ochranu pred bežnými návštevníkmi.
         </p>
         <div class="form-group" style="max-width:340px;">
           <label>Prihlasovacie meno</label>
@@ -808,7 +913,7 @@
       <div class="card admin-section">
         <div class="card-header"><div class="card-title">Dáta</div></div>
         <p style="color:var(--text-2); font-size:14px; margin-bottom:12px;">
-          Dáta sú uložené v prehliadači (localStorage). Pre zálohu si exportuj JSON.
+          Dáta sú uložené v prehliadači. Pre zálohu si exportuj JSON.
         </p>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <button class="btn secondary" onclick="exportData()">⬇ Export JSON</button>
@@ -816,29 +921,27 @@
             ⬆ Import JSON
             <input type="file" accept=".json" style="display:none;" onchange="importData(event)">
           </label>
-          <button class="btn danger" onclick="resetAll()">Vynulovať všetko (demo)</button>
+          <button class="btn danger" onclick="resetAll()">Vynulovať všetko (STL 2026)</button>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    Spojená tenisová liga · vytvorené pre amatérsku ligu
+    Spojená tenisová liga · sezóna 2026
   </footer>
 </div>
 
-<!-- ===== MODAL: Pridať/upraviť výsledok ===== -->
+<!-- ===== MODAL: výsledok ===== -->
 <div class="modal-backdrop" id="resultModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('resultModal')">&times;</button>
     <div class="modal-title" id="modalTitle">Pridať výsledok</div>
-
     <div class="vs-row">
       <div style="text-align:right; font-weight:700;" id="modalP1Name">—</div>
       <div class="vs-label">vs</div>
       <div style="text-align:left; font-weight:700;" id="modalP2Name">—</div>
     </div>
-
     <div class="form-group">
       <label>Sety (zadaj gemy)</label>
       <div class="set-row">
@@ -858,12 +961,10 @@
       </div>
       <p style="color:var(--text-3); font-size:12px; margin-top:6px;">3. set vyplň iba ak sa hral</p>
     </div>
-
     <div class="form-group">
       <label>Dátum</label>
       <input type="date" id="matchDate">
     </div>
-
     <div class="modal-actions">
       <button class="btn danger small" id="deleteResultBtn" style="display:none; margin-right:auto;" onclick="deleteResult()">Vymazať</button>
       <button class="btn secondary" onclick="closeModal('resultModal')">Zrušiť</button>
@@ -925,112 +1026,99 @@
 
 <script>
 /* ============================================================
-   SPOJENÁ TENISOVÁ LIGA — verzia 2
+   SPOJENÁ TENISOVÁ LIGA — verzia 3 (sezóna 2026)
    ============================================================ */
 
-const STORAGE_KEY = 'stl_data_v2';
+const STORAGE_KEY = 'stl_data_v3';
 const SESSION_KEY = 'stl_session';
 let DATA = null;
 let CURRENT_MATCH_ID = null;
-let PENDING_PHOTO_DATA = null;
+let PHOTO_QUEUE = [];
 
-/* ---------- DEMO DÁTA ---------- */
+/* States pre prehliadanie tabuliek/rozpisu (cyklus / sezóna) */
+let standingsMode = 'season'; // 'season' alebo 1, 2
+let scheduleCycle = 1;
+
+/* ---------- DEMO DÁTA — STL 2026 ---------- */
 function getDemoData() {
   const players = [
-    { id: 'p1', name: 'Adam Kováč',     division: 'A' },
-    { id: 'p2', name: 'Boris Novák',    division: 'A' },
-    { id: 'p3', name: 'Cyril Horváth',  division: 'A' },
-    { id: 'p4', name: 'Dalibor Varga',  division: 'A' },
-    { id: 'p5', name: 'Eduard Tóth',    division: 'A' },
-    { id: 'p6', name: 'Filip Baláž',    division: 'A' },
-    { id: 'p7', name: 'Gabriel Molnár', division: 'A' },
-    { id: 'p8',  name: 'Hugo Polák',    division: 'B' },
-    { id: 'p9',  name: 'Igor Šimko',    division: 'B' },
-    { id: 'p10', name: 'Ján Hrnčiar',   division: 'B' },
-    { id: 'p11', name: 'Karol Vlček',   division: 'B' },
-    { id: 'p12', name: 'Lukáš Daniel',  division: 'B' },
-    { id: 'p13', name: 'Marek Beňo',    division: 'B' },
-    { id: 'p14', name: 'Norbert Krajči',division: 'B' },
-    { id: 'p15', name: 'Oliver Žilka',  division: 'C' },
-    { id: 'p16', name: 'Pavol Mráz',    division: 'C' },
-    { id: 'p17', name: 'Roman Sečka',   division: 'C' },
-    { id: 'p18', name: 'Samuel Bíro',   division: 'C' },
-    { id: 'p19', name: 'Tomáš Petrík',  division: 'C' },
-    { id: 'p20', name: 'Viktor Lacko',  division: 'C' }
+    // 1. liga (A) – 8 hráčov
+    { id: 'p1',  name: 'Ján Jakubík',         division: 'A' },
+    { id: 'p2',  name: 'Michal Krško',        division: 'A' },
+    { id: 'p3',  name: 'Stanislav Ursíny',    division: 'A' },
+    { id: 'p4',  name: 'Miroslav Mikula',     division: 'A' },
+    { id: 'p5',  name: 'Peter Ondoš',         division: 'A' },
+    { id: 'p6',  name: 'Ivan Krajíček',       division: 'A' },
+    { id: 'p7',  name: 'Andrej Procházka',    division: 'A' },
+    { id: 'p8',  name: 'Anton Kubáň',         division: 'A' },
+    // 2. liga (B) – 7 hráčov
+    { id: 'p9',  name: 'Lukáš Holeša',        division: 'B' },
+    { id: 'p10', name: 'Ján Zuzík',           division: 'B' },
+    { id: 'p11', name: 'Marek Meššo',         division: 'B' },
+    { id: 'p12', name: 'Ján Lokaj',           division: 'B' },
+    { id: 'p13', name: 'Ludevít Lalík',       division: 'B' },
+    { id: 'p14', name: 'Dávid Krško',         division: 'B' },
+    { id: 'p15', name: 'Martin Kočitý',       division: 'B' },
+    // 3. liga (C) – 7 hráčov
+    { id: 'p16', name: 'Simona Špiriaková',   division: 'C' },
+    { id: 'p17', name: 'Miroslav Ozimy',      division: 'C' },
+    { id: 'p18', name: 'Daniel Lokaj',        division: 'C' },
+    { id: 'p19', name: 'Lucia Papanová',      division: 'C' },
+    { id: 'p20', name: 'Ľubomír Korista',     division: 'C' },
+    { id: 'p21', name: 'Peter Ďuroška',       division: 'C' },
+    { id: 'p22', name: 'Štefan Miksák',       division: 'C' }
   ];
   const data = {
-    version: 2,
+    version: 3,
+    season: 2026,
     cycle: 1,
+    seasonCycles: 2,
     players,
     matches: [],
-    cycleDeadlines: { 1: '' },
-    propozicie: {
-      text: getDefaultPropozicie(),
-      pdfName: ''
-    },
+    cycleDeadlines: { 1: '', 2: '' },
+    propozicie: { text: getDefaultPropozicie(), pdfName: '' },
     photos: [],
-    auth: {
-      username: 'admin',
-      passwordHash: simpleHash('stl2026')
-    }
+    auth: { username: 'admin', passwordHash: simpleHash('stl2026') },
+    playoff: { generated: false, matches: [] }
   };
   generateMatchesForCycle(data, 1);
 
-  // demo výsledky
-  const seed = [
-    { p1Id: 'p1', p2Id: 'p2', sets: [[6,4],[6,3]] },
-    { p1Id: 'p3', p2Id: 'p4', sets: [[6,2],[6,4]] },
-    { p1Id: 'p5', p2Id: 'p6', sets: [[4,6],[6,4],[10,8]] },
-    { p1Id: 'p1', p2Id: 'p7', sets: [[6,1],[6,2]] },
-    { p1Id: 'p2', p2Id: 'p3', sets: [[7,5],[3,6],[10,7]] },
-    { p1Id: 'p1', p2Id: 'p3', sets: [[6,3],[6,4]] },
-    { p1Id: 'p8', p2Id: 'p9', sets: [[6,4],[6,2]] },
-    { p1Id: 'p10', p2Id: 'p11', sets: [[5,7],[6,3],[10,6]] },
-    { p1Id: 'p12', p2Id: 'p13', sets: [[6,3],[6,4]] },
-    { p1Id: 'p15', p2Id: 'p16', sets: [[6,2],[6,1]] },
-    { p1Id: 'p17', p2Id: 'p18', sets: [[7,6],[6,4]] }
-  ];
+  // Default deadline = +60 dní
   const today = new Date();
-  seed.forEach((s, i) => {
-    const match = data.matches.find(m =>
-      (m.p1Id === s.p1Id && m.p2Id === s.p2Id) ||
-      (m.p1Id === s.p2Id && m.p2Id === s.p1Id)
-    );
-    if (match) {
-      const swap = match.p1Id !== s.p1Id;
-      match.sets = s.sets.map(set => swap ? [set[1], set[0]] : set);
-      const d = new Date(today); d.setDate(today.getDate() - (seed.length - i));
-      match.date = d.toISOString().slice(0,10);
-    }
-  });
-
-  // default deadline = +60 dní od dnes
   const dl = new Date(today); dl.setDate(today.getDate() + 60);
   data.cycleDeadlines[1] = dl.toISOString().slice(0, 10);
-
   return data;
 }
 
 function getDefaultPropozicie() {
-  return `SPOJENÁ TENISOVÁ LIGA – PROPOZÍCIE
+  return `SPOJENÁ TENISOVÁ LIGA — SEZÓNA 2026
 
-ZÁKLADNÝ SYSTÉM
-Hráči sú rozdelení do 3 divízií podľa výkonnosti:
-• A divízia — 7 hráčov
-• B divízia — 7 hráčov
-• C divízia — 6 hráčov
+ROZDELENIE HRÁČOV
+• 1. liga — 8 hráčov
+• 2. liga — 7 hráčov
+• 3. liga — 7 hráčov
+Spolu 22 hráčov.
 
-Každý cyklus trvá 5–7 týždňov. V rámci divízie hrá každý hráč s každým ("každý s každým"). Po skončení cyklu sa aplikujú postupy a pády.
+SYSTÉM SEZÓNY
+Sezónu tvoria 2 cykly. V každom cykle hrá v rámci svojej ligy každý s každým ("každý s každým"). Hráči zostávajú v tej istej lige cez celú sezónu — body z oboch cyklov sa kumulujú.
 
-POČET ZÁPASOV V CYKLE
-• A divízia: každý hráč 6 zápasov (spolu 21 zápasov)
-• B divízia: každý hráč 6 zápasov (spolu 21 zápasov)
-• C divízia: každý hráč 5 zápasov (spolu 15 zápasov)
+POČET ZÁPASOV ZA SEZÓNU
+• 1. liga: 7 zápasov za cyklus, spolu 14 zápasov
+• 2. liga: 6 zápasov za cyklus, spolu 12 zápasov
+• 3. liga: 6 zápasov za cyklus, spolu 12 zápasov
 
-POSTUPY A PÁDY PO CYKLE
-• A divízia → poslední 2 hráči padajú do B
-• B divízia → prví 2 postupujú do A, poslední 2 padajú do C
-• C divízia → prví 2 postupujú do B
+PLAY-OFF (po skončení 2. cyklu)
+Po dokončení oboch cyklov sa v každej lige odohrá play-off. Nasadenie do play-off určuje sezónne poradie (súčet bodov z oboch cyklov).
+
+• Pri 8 hráčoch (1. liga):
+  Štvrťfinále: 1v8, 2v7, 3v6, 4v5
+  Semifinále → Finále
+
+• Pri 7 hráčoch (2. a 3. liga):
+  1. miesto má voľný lístok do semifinále
+  Štvrťfinále: 4v5, 3v6, 2v7
+  Semifinále: 1 vs víťaz(4v5), víťaz(3v6) vs víťaz(2v7)
+  Finále
 
 BODOVANIE PODĽA SETOV
 • Výhra 2:0 v setoch → víťaz 3 body, porazený 0 bodov
@@ -1044,27 +1132,30 @@ PORADIE PRI ROVNOSTI BODOV
 5. Žreb / abeceda
 
 FORMÁT ZÁPASOV
-• 2 vyhraté sety
+• 2 vyhraté sety (dva súborné sety)
 • Pri stave 1:1 v setoch sa hrá 3. set ako super tie-break do 10 bodov
 
 TERMÍN ODOHRANIA
-Hráči si zápasy dohadujú medzi sebou v rámci stanoveného termínu daného cyklu. Termín je viditeľný na hlavnej stránke.
-
-ZÁVEREČNÉ PLAY-OFF (po 2 cykloch)
-• O titul: top 4 z A divízie
-• Semifinále: A1 vs A4, A2 vs A3
-• Baráže: 7. z A vs 3. z B, 6. z A vs 2. z B atď.`;
+Hráči si zápasy dohadujú medzi sebou v rámci stanoveného termínu daného cyklu. Termín je viditeľný na hlavnej stránke.`;
 }
 
 /* ---------- MIGRATION ---------- */
 function migrateData(d) {
   if (!d) return getDemoData();
-  if (!d.version || d.version < 2) {
-    d.version = 2;
+  // Migrácia z v1/v2 — najjednoduchšie: ak nemá v3 štruktúru, doplň polia
+  if (!d.version || d.version < 3) {
+    d.version = 3;
+    d.season = d.season || 2026;
+    d.seasonCycles = d.seasonCycles || 2;
     d.cycleDeadlines = d.cycleDeadlines || {};
     d.propozicie = d.propozicie || { text: getDefaultPropozicie(), pdfName: '' };
     d.photos = d.photos || [];
     d.auth = d.auth || { username: 'admin', passwordHash: simpleHash('stl2026') };
+    d.playoff = d.playoff || { generated: false, matches: [] };
+    // Detekuj staré demo mená (z v1/v2) a ponúkni reset
+    const oldDemoNames = ['Adam Kováč', 'Boris Novák', 'Cyril Horváth'];
+    const isOldDemo = oldDemoNames.every(n => d.players.some(p => p.name === n));
+    if (isOldDemo) return getDemoData(); // automaticky resetni na nové demo
   }
   return d;
 }
@@ -1102,7 +1193,7 @@ function generateMatchesForCycle(data, cycle) {
         id: `c${cycle}-${div}-${idx}`,
         cycle, division: div, round: m.round,
         p1Id: m.p1Id, p2Id: m.p2Id,
-        sets: null, date: null
+        sets: null, date: null, type: 'cycle'
       });
     });
   });
@@ -1128,9 +1219,15 @@ function calcMatchOutcome(match) {
   return { sets1, sets2, games1, games2, pts1, pts2, winnerIs1 };
 }
 
-function calcStandings(division, cycle) {
+function calcStandings(division, cycleFilter) {
+  // cycleFilter: 'season' (všetky cykly), alebo číslo
   const players = DATA.players.filter(p => p.division === division);
-  const matches = DATA.matches.filter(m => m.division === division && m.cycle === cycle);
+  const matches = DATA.matches.filter(m => {
+    if (m.division !== division) return false;
+    if (m.type === 'playoff') return false;
+    if (cycleFilter === 'season') return true;
+    return m.cycle === cycleFilter;
+  });
   const stats = {};
   players.forEach(p => {
     stats[p.id] = {
@@ -1169,7 +1266,6 @@ function calcStandings(division, cycle) {
   return arr;
 }
 
-/* ---------- ŠTATISTIKY (cross-cycle) ---------- */
 function calcAllPlayerStats() {
   const stats = {};
   DATA.players.forEach(p => {
@@ -1182,16 +1278,13 @@ function calcAllPlayerStats() {
       currentStreak: 0, longestWinStreak: 0, longestLoseStreak: 0
     };
   });
-  // Zoraď zápasy podľa dátumu (pre šnúru)
-  const playedMatches = DATA.matches
+  // Všetky zápasy (vrátane play-off)
+  const allMatches = [...DATA.matches, ...DATA.playoff.matches]
     .filter(m => m.sets && m.sets.length > 0)
     .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-
-  // Pre šnúru: pre každého hráča sleduj sled výhier/prehier
   const streakState = {};
-  Object.keys(stats).forEach(id => streakState[id] = { type: null, count: 0, longestW: 0, longestL: 0 });
-
-  playedMatches.forEach(m => {
+  Object.keys(stats).forEach(id => streakState[id] = { type: null, count: 0, lW: 0, lL: 0 });
+  allMatches.forEach(m => {
     const out = calcMatchOutcome(m);
     if (!out) return;
     const s1 = stats[m.p1Id], s2 = stats[m.p2Id];
@@ -1204,30 +1297,137 @@ function calcAllPlayerStats() {
     if (out.sets1 === 2 && out.sets2 === 0) s1.twoNilWins++;
     if (out.sets1 === 0 && out.sets2 === 2) s2.twoNilWins++;
     if (out.winnerIs1) { s1.wins++; s2.losses++; } else { s2.wins++; s1.losses++; }
-
-    // Streak update
     const winnerId = out.winnerIs1 ? m.p1Id : m.p2Id;
     const loserId  = out.winnerIs1 ? m.p2Id : m.p1Id;
     const ws = streakState[winnerId];
     if (ws.type === 'W') ws.count++; else { ws.type = 'W'; ws.count = 1; }
-    if (ws.count > ws.longestW) ws.longestW = ws.count;
+    if (ws.count > ws.lW) ws.lW = ws.count;
     const ls = streakState[loserId];
     if (ls.type === 'L') ls.count++; else { ls.type = 'L'; ls.count = 1; }
-    if (ls.count > ls.longestL) ls.longestL = ls.count;
+    if (ls.count > ls.lL) ls.lL = ls.count;
   });
-
   Object.keys(stats).forEach(id => {
-    stats[id].longestWinStreak = streakState[id].longestW;
-    stats[id].longestLoseStreak = streakState[id].longestL;
-    stats[id].currentStreak = streakState[id].type === 'W' ? streakState[id].count
-                            : streakState[id].type === 'L' ? -streakState[id].count : 0;
+    stats[id].longestWinStreak = streakState[id].lW;
+    stats[id].longestLoseStreak = streakState[id].lL;
   });
   return Object.values(stats);
 }
 
+/* ---------- PLAY-OFF ---------- */
+function generatePlayoff() {
+  const playoffMatches = [];
+  ['A', 'B', 'C'].forEach(div => {
+    const standings = calcStandings(div, 'season');
+    const n = standings.length;
+    if (n < 4) return;
+    const seed = idx => standings[idx]?.id || null; // seed[0] = 1. miesto
+
+    if (n >= 8) {
+      // 8 hráčov: QF1=1v8, QF2=4v5, QF3=3v6, QF4=2v7
+      const pairs = [[0,7], [3,4], [2,5], [1,6]];
+      pairs.forEach((pair, i) => {
+        playoffMatches.push({
+          id: `po-${div}-QF-${i+1}`,
+          cycle: 'po', type: 'playoff', division: div,
+          round: 'QF', position: i+1,
+          p1Id: seed(pair[0]), p2Id: seed(pair[1]),
+          p1Source: null, p2Source: null,
+          sets: null, date: null
+        });
+      });
+      // SF1: víťaz QF1 vs víťaz QF2; SF2: víťaz QF3 vs víťaz QF4
+      [[1,2],[3,4]].forEach((pair, i) => {
+        playoffMatches.push({
+          id: `po-${div}-SF-${i+1}`,
+          cycle: 'po', type: 'playoff', division: div,
+          round: 'SF', position: i+1,
+          p1Id: null, p2Id: null,
+          p1Source: { round: 'QF', position: pair[0] },
+          p2Source: { round: 'QF', position: pair[1] },
+          sets: null, date: null
+        });
+      });
+    } else if (n === 7) {
+      // 7 hráčov: 1. miesto má bye, QF1=4v5, QF2=3v6, QF3=2v7
+      const pairs = [[3,4], [2,5], [1,6]];
+      pairs.forEach((pair, i) => {
+        playoffMatches.push({
+          id: `po-${div}-QF-${i+1}`,
+          cycle: 'po', type: 'playoff', division: div,
+          round: 'QF', position: i+1,
+          p1Id: seed(pair[0]), p2Id: seed(pair[1]),
+          p1Source: null, p2Source: null,
+          sets: null, date: null
+        });
+      });
+      // SF1: 1. miesto vs víťaz QF1; SF2: víťaz QF2 vs víťaz QF3
+      playoffMatches.push({
+        id: `po-${div}-SF-1`,
+        cycle: 'po', type: 'playoff', division: div,
+        round: 'SF', position: 1,
+        p1Id: seed(0), p2Id: null,
+        p1Source: null, p2Source: { round: 'QF', position: 1 },
+        sets: null, date: null
+      });
+      playoffMatches.push({
+        id: `po-${div}-SF-2`,
+        cycle: 'po', type: 'playoff', division: div,
+        round: 'SF', position: 2,
+        p1Id: null, p2Id: null,
+        p1Source: { round: 'QF', position: 2 },
+        p2Source: { round: 'QF', position: 3 },
+        sets: null, date: null
+      });
+    } else if (n >= 4) {
+      // Fallback pre 4-6 hráčov
+      const pairs = n === 6 ? [[2,5],[3,4]] : [[0,3],[1,2]];
+      pairs.forEach((pair, i) => {
+        playoffMatches.push({
+          id: `po-${div}-SF-${i+1}`,
+          cycle: 'po', type: 'playoff', division: div,
+          round: 'SF', position: i+1,
+          p1Id: seed(pair[0]), p2Id: seed(pair[1]),
+          p1Source: null, p2Source: null,
+          sets: null, date: null
+        });
+      });
+    }
+    // Finále — vždy
+    playoffMatches.push({
+      id: `po-${div}-F-1`,
+      cycle: 'po', type: 'playoff', division: div,
+      round: 'F', position: 1,
+      p1Id: null, p2Id: null,
+      p1Source: { round: 'SF', position: 1 },
+      p2Source: { round: 'SF', position: 2 },
+      sets: null, date: null
+    });
+  });
+  DATA.playoff = { generated: true, matches: playoffMatches };
+}
+
+function propagatePlayoff() {
+  // Pre každý PO match s p1Source/p2Source skontroluj víťaza zdrojového zápasu
+  DATA.playoff.matches.forEach(m => {
+    if (m.p1Id == null && m.p1Source) {
+      const src = DATA.playoff.matches.find(x => x.division === m.division && x.round === m.p1Source.round && x.position === m.p1Source.position);
+      const out = src ? calcMatchOutcome(src) : null;
+      if (out) m.p1Id = out.winnerIs1 ? src.p1Id : src.p2Id;
+    }
+    if (m.p2Id == null && m.p2Source) {
+      const src = DATA.playoff.matches.find(x => x.division === m.division && x.round === m.p2Source.round && x.position === m.p2Source.position);
+      const out = src ? calcMatchOutcome(src) : null;
+      if (out) m.p2Id = out.winnerIs1 ? src.p1Id : src.p2Id;
+    }
+  });
+}
+
+function getMatchById(id) {
+  return DATA.matches.find(m => m.id === id) || DATA.playoff.matches.find(m => m.id === id);
+}
+
 /* ---------- AUTH ---------- */
 function simpleHash(s) {
-  // Veľmi jednoduchý hash, len pre obfuskáciu (nie kryptografická bezpečnosť)
   let h = 0;
   for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
   return 'h' + h.toString(36);
@@ -1252,27 +1452,55 @@ function doLogin() {
     showToast('Nesprávne meno alebo heslo', 'error');
   }
 }
-function logout() {
-  sessionStorage.removeItem(SESSION_KEY);
-  showToast('Odhlásený');
-  render();
+function logout() { sessionStorage.removeItem(SESSION_KEY); showToast('Odhlásený'); render(); }
+
+/* ---------- HELPERS ---------- */
+function divisionLabel(d) { return { A: '1. liga', B: '2. liga', C: '3. liga' }[d] || d; }
+function divisionShort(d) { return { A: '1', B: '2', C: '3' }[d] || d; }
+function playerById(id) { return DATA.players.find(p => p.id === id); }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
+function formatDate(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return s;
+  return d.toLocaleDateString('sk-SK', { day: 'numeric', month: 'numeric', year: 'numeric' });
+}
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr); const now = new Date();
+  now.setHours(0,0,0,0); d.setHours(0,0,0,0);
+  return Math.round((d - now) / 86400000);
+}
+function dayWord(n) { if (n === 1) return 'deň'; if (n >= 2 && n <= 4) return 'dni'; return 'dní'; }
 
 /* ---------- RENDER: TABUĽKY ---------- */
 function renderStandings() {
   const wrap = document.getElementById('standingsContainer');
   wrap.innerHTML = '';
+  const mode = standingsMode;
+  const sub = document.getElementById('standingsSubtitle');
+  if (mode === 'season') {
+    sub.textContent = `Sezónny súčet bodov za Cyklus 1 + Cyklus 2 · bodovanie podľa setov (2:0 → 3 b., 2:1 → 2 b. + 1 b.)`;
+    document.getElementById('standingsModeBtn').innerHTML = `Cyklus <span id="cycleModeNum">1</span>`;
+  } else {
+    sub.textContent = `Tabuľka za Cyklus ${mode} · bodovanie podľa setov`;
+    document.getElementById('standingsModeBtn').innerHTML = mode === 1 ? `Cyklus <span id="cycleModeNum">2</span>` : `Sezóna spolu`;
+  }
   ['A', 'B', 'C'].forEach(div => {
-    const standings = calcStandings(div, DATA.cycle);
-    const promoteCount = (div === 'B' || div === 'C') ? 2 : 0;
-    const relegateStart = (div === 'A' || div === 'B') ? standings.length - 2 : -1;
+    const standings = calcStandings(div, mode);
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
       <div class="card-header">
         <div class="card-title">
-          <span class="division-tag div-${div}">${div}</span>
-          <span>Divízia ${div}</span>
+          <span class="division-tag div-${div}">${divisionShort(div)}</span>
+          <span>${divisionLabel(div)}</span>
           <span style="color:var(--text-2); font-weight:500; font-size:13px;">· ${standings.length} hráčov</span>
         </div>
       </div>
@@ -1292,9 +1520,8 @@ function renderStandings() {
           </thead>
           <tbody>
             ${standings.map((s, i) => {
-              let posClass = '';
-              if (i < promoteCount) posClass = 'promote';
-              else if (relegateStart >= 0 && i >= relegateStart) posClass = 'relegate';
+              let posClass = 'playoff';
+              if (i === 0) posClass = 'first';
               return `
                 <tr>
                   <td class="center"><span class="pos ${posClass}">${i+1}</span></td>
@@ -1314,23 +1541,29 @@ function renderStandings() {
     wrap.appendChild(card);
   });
 }
+function toggleStandingsMode() {
+  if (standingsMode === 'season') standingsMode = 1;
+  else if (standingsMode === 1) standingsMode = 2;
+  else standingsMode = 'season';
+  renderStandings();
+}
 
 /* ---------- RENDER: ROZPIS ---------- */
 function renderSchedule() {
   const wrap = document.getElementById('scheduleContainer');
   wrap.innerHTML = '';
-  const dl = DATA.cycleDeadlines?.[DATA.cycle];
+  document.getElementById('scheduleCycleNum').textContent = scheduleCycle;
+  const dl = DATA.cycleDeadlines?.[scheduleCycle];
   const sub = document.getElementById('scheduleSubtitle');
   if (dl) {
     const days = daysUntil(dl);
-    const dlText = formatDate(dl);
-    sub.innerHTML = `Termín odohrania cyklu ${DATA.cycle}: <strong style="color:var(--accent);">${dlText}</strong> ${days >= 0 ? `(ostáva ${days} ${dayWord(days)})` : `<strong style="color:var(--red);">(po termíne ${-days} ${dayWord(-days)})</strong>`}`;
+    sub.innerHTML = `Termín odohrania <strong>cyklu ${scheduleCycle}</strong>: <strong style="color:var(--accent);">${formatDate(dl)}</strong> ${days >= 0 ? `(ostáva ${days} ${dayWord(days)})` : `<strong style="color:var(--red);">(po termíne ${-days} ${dayWord(-days)})</strong>`}`;
   } else {
-    sub.textContent = 'Klikni na zápas a pridaj výsledok';
+    sub.textContent = `Cyklus ${scheduleCycle} · Klikni na zápas a pridaj výsledok (admin)`;
   }
   ['A', 'B', 'C'].forEach(div => {
     const matches = DATA.matches
-      .filter(m => m.division === div && m.cycle === DATA.cycle)
+      .filter(m => m.division === div && m.cycle === scheduleCycle && m.type !== 'playoff')
       .sort((a, b) => (a.round || 0) - (b.round || 0));
     if (matches.length === 0) return;
     const playedCount = matches.filter(m => m.sets && m.sets.length > 0).length;
@@ -1339,8 +1572,8 @@ function renderSchedule() {
     card.innerHTML = `
       <div class="card-header">
         <div class="card-title">
-          <span class="division-tag div-${div}">${div}</span>
-          <span>Divízia ${div}</span>
+          <span class="division-tag div-${div}">${divisionShort(div)}</span>
+          <span>${divisionLabel(div)}</span>
         </div>
         <div style="color:var(--text-2); font-size:13px;">${playedCount} / ${matches.length} odohraných</div>
       </div>
@@ -1380,11 +1613,16 @@ function renderSchedule() {
     });
   });
 }
+function toggleScheduleCycle() {
+  scheduleCycle = scheduleCycle === 1 ? 2 : 1;
+  renderSchedule();
+}
 
 /* ---------- RENDER: VÝSLEDKY ---------- */
 function renderResults() {
   const wrap = document.getElementById('resultsContainer');
-  const played = DATA.matches.filter(m => m.sets && m.sets.length > 0);
+  const all = [...DATA.matches, ...DATA.playoff.matches];
+  const played = all.filter(m => m.sets && m.sets.length > 0);
   played.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   if (played.length === 0) {
     wrap.innerHTML = '<div class="empty"><div class="empty-icon">🎾</div>Zatiaľ žiadne odohraté zápasy</div>';
@@ -1394,11 +1632,14 @@ function renderResults() {
   wrap.innerHTML = played.map(m => {
     const out = calcMatchOutcome(m);
     const p1 = playerById(m.p1Id), p2 = playerById(m.p2Id);
+    const cycleLabel = m.type === 'playoff'
+      ? `Play-off · ${m.round} · ${divisionLabel(m.division)}`
+      : `Cyklus ${m.cycle} · ${divisionLabel(m.division)}`;
     return `
       <div class="match-row played" ${canEdit ? `onclick="openResultModal('${m.id}')" style="cursor:pointer;"` : ''}>
         <div class="player-side left">
           <div class="${out.winnerIs1 ? 'winner' : 'loser'}">${escapeHtml(p1?.name || '?')}</div>
-          <div style="font-size:11px; color:var(--text-3); margin-top:2px;">Cyklus ${m.cycle} · Div. ${m.division} · ${formatDate(m.date) || '—'}</div>
+          <div style="font-size:11px; color:var(--text-3); margin-top:2px;">${cycleLabel} · ${formatDate(m.date) || '—'}</div>
         </div>
         <div class="score-box">${out.sets1} : ${out.sets2}<div class="games-detail">${m.sets.map(s => `${s[0]}:${s[1]}`).join(' · ')}</div></div>
         <div class="player-side right">
@@ -1409,9 +1650,111 @@ function renderResults() {
   }).join('');
 }
 
+/* ---------- RENDER: PLAY-OFF ---------- */
+function renderPlayoff() {
+  const wrap = document.getElementById('playoffContainer');
+  if (!DATA.playoff.generated || DATA.playoff.matches.length === 0) {
+    const cycle2Done = DATA.matches.filter(m => m.cycle === 2).every(m => m.sets && m.sets.length > 0);
+    const isAdmin = isLoggedIn();
+    let msg = `<div class="empty"><div class="empty-icon">🏆</div>Play-off bude dostupný po dokončení 2. cyklu.<br><br>`;
+    if (DATA.cycle === 1) msg += `Aktuálne prebieha <strong>1. cyklus</strong>.</div>`;
+    else if (DATA.cycle === 2 && !cycle2Done) msg += `Aktuálne prebieha <strong>2. cyklus</strong>. ${isAdmin ? '<br><br>Po skončení všetkých zápasov choď do Admin → Cykly a play-off → "Spustiť play-off".' : ''}</div>`;
+    else msg += isAdmin ? `Choď do <strong>Admin → Cykly a play-off</strong> a klikni "Spustiť play-off".</div>` : `Čaká sa na admin spustenie.</div>`;
+    wrap.innerHTML = msg;
+    return;
+  }
+
+  wrap.innerHTML = '';
+  ['A', 'B', 'C'].forEach(div => {
+    const matches = DATA.playoff.matches.filter(m => m.division === div);
+    if (matches.length === 0) return;
+
+    const section = document.createElement('div');
+    section.className = 'bracket-section';
+
+    const standings = calcStandings(div, 'season');
+    const playerSeeds = {};
+    standings.forEach((s, i) => playerSeeds[s.id] = i + 1);
+
+    const finalMatch = matches.find(m => m.round === 'F');
+    const champion = finalMatch ? (() => {
+      const out = calcMatchOutcome(finalMatch);
+      if (!out) return null;
+      const winId = out.winnerIs1 ? finalMatch.p1Id : finalMatch.p2Id;
+      return playerById(winId);
+    })() : null;
+
+    const rounds = ['QF', 'SF', 'F'];
+    const roundLabels = { QF: 'Štvrťfinále', SF: 'Semifinále', F: 'Finále' };
+    let bracketHtml = '<div class="bracket">';
+    rounds.forEach(rn => {
+      const roundMatches = matches.filter(m => m.round === rn).sort((a,b) => a.position - b.position);
+      if (roundMatches.length === 0) return;
+      bracketHtml += `<div class="bracket-round">`;
+      bracketHtml += `<div class="bracket-round-title ${rn === 'F' ? 'final' : ''}">${roundLabels[rn]}</div>`;
+      roundMatches.forEach(m => {
+        bracketHtml += renderBracketMatch(m, playerSeeds);
+      });
+      bracketHtml += `</div>`;
+    });
+    bracketHtml += '</div>';
+
+    let championHtml = '';
+    if (champion) {
+      championHtml = `<div class="bracket-champion">
+        <div class="trophy">🏆</div>
+        <div class="name">${escapeHtml(champion.name)}</div>
+        <div class="label">Víťaz play-off ${divisionLabel(div)}</div>
+      </div>`;
+    }
+
+    section.innerHTML = `
+      <div class="bracket-section-header">
+        <span class="division-tag div-${div}">${divisionShort(div)}</span>
+        <div class="bracket-section-title">${divisionLabel(div)}</div>
+      </div>
+      ${bracketHtml}
+      ${championHtml}
+    `;
+    wrap.appendChild(section);
+  });
+}
+
+function renderBracketMatch(m, playerSeeds) {
+  const out = calcMatchOutcome(m);
+  const p1 = m.p1Id ? playerById(m.p1Id) : null;
+  const p2 = m.p2Id ? playerById(m.p2Id) : null;
+  const canEdit = isLoggedIn() && p1 && p2;
+  const isFinal = m.round === 'F';
+  const seed1 = p1 && playerSeeds[p1.id] ? `<span style="color:var(--text-3); font-size:11px; margin-right:4px;">${playerSeeds[p1.id]}.</span>` : '';
+  const seed2 = p2 && playerSeeds[p2.id] ? `<span style="color:var(--text-3); font-size:11px; margin-right:4px;">${playerSeeds[p2.id]}.</span>` : '';
+
+  const teamHtml = (player, seed, score, cls) => {
+    if (!player) {
+      return `<div class="bracket-team tba"><span>${seed}TBA</span></div>`;
+    }
+    return `<div class="bracket-team ${cls}">
+      <span>${seed}${escapeHtml(player.name)}</span>
+      ${score !== null ? `<span class="score">${score}</span>` : ''}
+    </div>`;
+  };
+
+  let cls1 = '', cls2 = '', s1 = null, s2 = null;
+  if (out) {
+    s1 = out.sets1; s2 = out.sets2;
+    cls1 = out.winnerIs1 ? 'winner' : 'loser';
+    cls2 = out.winnerIs1 ? 'loser' : 'winner';
+  }
+
+  return `<div class="bracket-match ${canEdit ? 'clickable' : ''} ${isFinal ? 'is-final' : ''}" ${canEdit ? `onclick="openResultModal('${m.id}')"` : ''}>
+    ${teamHtml(p1, seed1, s1, cls1)}
+    ${teamHtml(p2, seed2, s2, cls2)}
+  </div>`;
+}
+
 /* ---------- RENDER: ŠTATISTIKY ---------- */
 function renderStats() {
-  const allMatches = DATA.matches.filter(m => m.sets && m.sets.length > 0);
+  const allMatches = [...DATA.matches, ...DATA.playoff.matches].filter(m => m.sets && m.sets.length > 0);
   const totalMatches = allMatches.length;
   const totalSets = allMatches.reduce((s, m) => s + (m.sets?.length || 0), 0);
   const totalGames = allMatches.reduce((s, m) => s + m.sets.reduce((a, set) => a + (set[0]||0) + (set[1]||0), 0), 0);
@@ -1424,8 +1767,6 @@ function renderStats() {
   `;
 
   const all = calcAllPlayerStats();
-
-  // Lídri kategórií
   const leaders = [
     { title: 'Najviac víťazstiev', metric: p => p.wins, format: v => v + ' výhier' },
     { title: 'Najlepšia úspešnosť', metric: p => p.played >= 3 ? p.wins / p.played : -1, format: (v, p) => Math.round(v*100)+'% (' + p.wins + '/' + p.played + ')' },
@@ -1449,29 +1790,24 @@ function renderStats() {
     </div>`;
   }).join('');
 
-  // Top tabuľky
   const renderTopList = (containerId, list, fmt) => {
     document.getElementById(containerId).innerHTML = list.length ? list.map((p, i) => `
       <div class="match-row" style="grid-template-columns: auto 1fr auto; cursor:default;">
         <span class="pos">${i+1}</span>
-        <div><strong>${escapeHtml(p.name)}</strong> <span style="color:var(--text-2); font-size:12px;">· Div. ${p.division}</span></div>
+        <div><strong>${escapeHtml(p.name)}</strong> <span style="color:var(--text-2); font-size:12px;">· ${divisionLabel(p.division)}</span></div>
         <div>${fmt(p)}</div>
       </div>
     `).join('') : '<div class="empty">Málo dát</div>';
   };
-
   renderTopList('topWinners',
     [...all].filter(p => p.wins > 0).sort((a,b) => b.wins - a.wins).slice(0, 10),
     p => `<span class="points">${p.wins}V</span> <span style="color:var(--text-3);">/ ${p.losses}P</span>`);
-
   renderTopList('topWinrate',
     [...all].filter(p => p.played >= 3).sort((a,b) => (b.wins/b.played) - (a.wins/a.played)).slice(0, 10),
     p => `<span class="points">${Math.round(p.wins/p.played*100)}%</span> <span style="color:var(--text-3); font-size:12px;">(${p.played} z.)</span>`);
-
   renderTopList('topStreak',
     [...all].filter(p => p.longestWinStreak > 0).sort((a,b) => b.longestWinStreak - a.longestWinStreak).slice(0, 10),
     p => `<span class="points">${p.longestWinStreak}</span> <span style="color:var(--text-3); font-size:12px;">v rade</span>`);
-
   renderTopList('topPlayed',
     [...all].filter(p => p.played > 0).sort((a,b) => b.played - a.played).slice(0, 10),
     p => `<span class="points">${p.played}</span> <span style="color:var(--text-3); font-size:12px;">zápasov</span>`);
@@ -1494,19 +1830,13 @@ function renderPropozicie() {
         <a href="${encodeURI(pdfName)}" target="_blank" class="btn small">Otvoriť PDF</a>
       </div>
     `;
-  } else {
-    pdfWrap.innerHTML = '';
-  }
-
-  // Admin edit
+  } else { pdfWrap.innerHTML = ''; }
   const adminEdit = document.getElementById('adminEditPropozicie');
   if (isLoggedIn()) {
     adminEdit.style.display = 'block';
     document.getElementById('propozicieTextEdit').value = text;
     document.getElementById('propoziciePdfName').value = DATA.propozicie?.pdfName || '';
-  } else {
-    adminEdit.style.display = 'none';
-  }
+  } else adminEdit.style.display = 'none';
 }
 function savePropozicie() {
   if (!isLoggedIn()) return;
@@ -1514,9 +1844,7 @@ function savePropozicie() {
     text: document.getElementById('propozicieTextEdit').value,
     pdfName: document.getElementById('propoziciePdfName').value.trim()
   };
-  saveData();
-  renderPropozicie();
-  showToast('Propozície uložené');
+  saveData(); renderPropozicie(); showToast('Propozície uložené');
 }
 
 /* ---------- RENDER: GALÉRIA ---------- */
@@ -1536,7 +1864,6 @@ function renderGallery() {
     </div>
   `).join('')}</div>`;
 }
-
 function openLightbox(id) {
   const ph = DATA.photos.find(p => p.id === id);
   if (!ph) return;
@@ -1545,18 +1872,11 @@ function openLightbox(id) {
   document.getElementById('lightbox').classList.add('active');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
-
 function uploadPhotos(event) {
   if (!isLoggedIn()) return;
   const files = Array.from(event.target.files);
   event.target.value = '';
   if (files.length === 0) return;
-  // Process all sequentially with caption modal for first only (batch caption)
-  processPhotos(files);
-}
-
-let PHOTO_QUEUE = [];
-function processPhotos(files) {
   PHOTO_QUEUE = [];
   let processed = 0;
   files.forEach(file => {
@@ -1564,7 +1884,6 @@ function processPhotos(files) {
       PHOTO_QUEUE.push(dataUrl);
       processed++;
       if (processed === files.length) {
-        // Show caption modal once
         document.getElementById('photoCaption').value = '';
         document.getElementById('photoDate').value = new Date().toISOString().slice(0,10);
         document.getElementById('photoModal').classList.add('active');
@@ -1572,10 +1891,7 @@ function processPhotos(files) {
     });
   });
 }
-function cancelPhotoUpload() {
-  PHOTO_QUEUE = [];
-  closeModal('photoModal');
-}
+function cancelPhotoUpload() { PHOTO_QUEUE = []; closeModal('photoModal'); }
 function confirmPhotoUpload() {
   const caption = document.getElementById('photoCaption').value.trim();
   const date = document.getElementById('photoDate').value;
@@ -1586,24 +1902,15 @@ function confirmPhotoUpload() {
     });
   });
   PHOTO_QUEUE = [];
-  try {
-    saveData();
-    closeModal('photoModal');
-    renderGallery();
-    showToast('Fotky pridané');
-  } catch (e) {
-    showToast('Chyba: prehliadač má plnú pamäť pre fotky', 'error');
-  }
+  try { saveData(); closeModal('photoModal'); renderGallery(); showToast('Fotky pridané'); }
+  catch (e) { showToast('Chyba: prehliadač má plnú pamäť pre fotky', 'error'); }
 }
 function deletePhoto(id) {
   if (!isLoggedIn()) return;
   if (!confirm('Vymazať túto fotku?')) return;
   DATA.photos = DATA.photos.filter(p => p.id !== id);
-  saveData();
-  renderGallery();
-  showToast('Fotka vymazaná');
+  saveData(); renderGallery(); showToast('Fotka vymazaná');
 }
-
 function resizeImage(file, maxWidth, callback) {
   const reader = new FileReader();
   reader.onload = e => {
@@ -1614,8 +1921,7 @@ function resizeImage(file, maxWidth, callback) {
       const h = Math.round(img.height * ratio);
       const canvas = document.createElement('canvas');
       canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
       callback(canvas.toDataURL('image/jpeg', 0.82));
     };
     img.src = e.target.result;
@@ -1634,6 +1940,7 @@ function renderAdmin() {
   document.getElementById('newUsername').value = DATA.auth.username;
   document.getElementById('newPassword').value = '';
   renderAdminPlayers();
+  renderAdminCycleControls();
 }
 function renderAdminPlayers() {
   const wrap = document.getElementById('playersList');
@@ -1641,13 +1948,30 @@ function renderAdminPlayers() {
     <div class="player-row" data-id="${p.id}">
       <input type="text" value="${escapeHtml(p.name)}" data-field="name">
       <select data-field="division">
-        <option value="A" ${p.division==='A'?'selected':''}>A</option>
-        <option value="B" ${p.division==='B'?'selected':''}>B</option>
-        <option value="C" ${p.division==='C'?'selected':''}>C</option>
+        <option value="A" ${p.division==='A'?'selected':''}>1. liga</option>
+        <option value="B" ${p.division==='B'?'selected':''}>2. liga</option>
+        <option value="C" ${p.division==='C'?'selected':''}>3. liga</option>
       </select>
       <button class="btn small danger" onclick="removePlayer('${p.id}')">×</button>
     </div>
   `).join('');
+}
+function renderAdminCycleControls() {
+  const wrap = document.getElementById('cycleAdminButtons');
+  const status = document.getElementById('cycleStatusText');
+  let buttons = '';
+  if (DATA.cycle === 1) {
+    status.innerHTML = `Aktuálny stav: <strong style="color:var(--accent);">Cyklus 1 zo 2</strong>. Po skončení všetkých zápasov 1. cyklu klikni na "Spustiť cyklus 2".`;
+    buttons += `<button class="btn" onclick="startNextCycle()">Spustiť cyklus 2 →</button>`;
+  } else if (DATA.cycle === 2 && !DATA.playoff.generated) {
+    status.innerHTML = `Aktuálny stav: <strong style="color:var(--accent);">Cyklus 2 zo 2</strong>. Po skončení všetkých zápasov klikni na "Spustiť play-off".`;
+    buttons += `<button class="btn" onclick="startPlayoff()">🏆 Spustiť play-off →</button>`;
+  } else if (DATA.playoff.generated) {
+    status.innerHTML = `Aktuálny stav: <strong style="color:var(--accent);">Play-off prebieha</strong>. Po jeho skončení môžeš začať novú sezónu.`;
+    buttons += `<button class="btn secondary" onclick="resetPlayoff()">Zrušiť play-off</button>`;
+  }
+  buttons += `<button class="btn secondary" onclick="regenerateSchedule()">Pre-generovať rozpis cyklu ${DATA.cycle}</button>`;
+  wrap.innerHTML = buttons;
 }
 function addNewPlayer() {
   if (!isLoggedIn()) return;
@@ -1670,16 +1994,12 @@ function savePlayers() {
     player.name = row.querySelector('[data-field="name"]').value.trim() || player.name;
     player.division = row.querySelector('[data-field="division"]').value;
   });
-  saveData();
-  showToast('Hráči uložení');
-  render();
+  saveData(); showToast('Hráči uložení'); render();
 }
 function saveDeadline() {
   if (!isLoggedIn()) return;
   DATA.cycleDeadlines[DATA.cycle] = document.getElementById('cycleDeadlineInput').value;
-  saveData();
-  render();
-  showToast('Termín uložený');
+  saveData(); render(); showToast('Termín uložený');
 }
 function saveCredentials() {
   if (!isLoggedIn()) return;
@@ -1688,33 +2008,50 @@ function saveCredentials() {
   if (!u) { showToast('Meno nemôže byť prázdne', 'error'); return; }
   DATA.auth.username = u;
   if (p) DATA.auth.passwordHash = simpleHash(p);
-  saveData();
-  showToast('Údaje uložené');
-  render();
+  saveData(); showToast('Údaje uložené'); render();
 }
 
-/* ---------- CYKLY ---------- */
-function advanceCycle() {
+/* ---------- CYKLY & PLAY-OFF ---------- */
+function startNextCycle() {
   if (!isLoggedIn()) return;
-  const standA = calcStandings('A', DATA.cycle);
-  const standB = calcStandings('B', DATA.cycle);
-  const standC = calcStandings('C', DATA.cycle);
-  if (!confirm(`Ukončiť cyklus ${DATA.cycle} a aplikovať postupy/pády?\n\nZ A padajú: ${standA.slice(-2).map(p=>p.name).join(', ')}\nZ B postupujú: ${standB.slice(0,2).map(p=>p.name).join(', ')}\nZ B padajú: ${standB.slice(-2).map(p=>p.name).join(', ')}\nZ C postupujú: ${standC.slice(0,2).map(p=>p.name).join(', ')}`)) return;
-  standA.slice(-2).forEach(p => { const pl = DATA.players.find(x => x.id === p.id); if (pl) pl.division = 'B'; });
-  standB.slice(0, 2).forEach(p => { const pl = DATA.players.find(x => x.id === p.id); if (pl) pl.division = 'A'; });
-  standB.slice(-2).forEach(p => { const pl = DATA.players.find(x => x.id === p.id); if (pl) pl.division = 'C'; });
-  standC.slice(0, 2).forEach(p => { const pl = DATA.players.find(x => x.id === p.id); if (pl) pl.division = 'B'; });
+  if (DATA.cycle >= DATA.seasonCycles) {
+    showToast('Sezóna má max ' + DATA.seasonCycles + ' cykly', 'error'); return;
+  }
+  if (!confirm(`Spustiť cyklus ${DATA.cycle + 1}? (hráči zostávajú v rovnakých ligách, vygeneruje sa nový rozpis)`)) return;
   DATA.cycle++;
   generateMatchesForCycle(DATA, DATA.cycle);
-  if (!DATA.cycleDeadlines[DATA.cycle]) DATA.cycleDeadlines[DATA.cycle] = '';
-  saveData();
-  render();
-  showToast(`Spustený cyklus ${DATA.cycle}`);
+  if (!DATA.cycleDeadlines[DATA.cycle]) {
+    const d = new Date(); d.setDate(d.getDate() + 60);
+    DATA.cycleDeadlines[DATA.cycle] = d.toISOString().slice(0, 10);
+  }
+  saveData(); render(); showToast(`Spustený cyklus ${DATA.cycle}`);
+  scheduleCycle = DATA.cycle;
+}
+function startPlayoff() {
+  if (!isLoggedIn()) return;
+  const cycle2Done = DATA.matches.filter(m => m.cycle === 2).every(m => m.sets && m.sets.length > 0);
+  if (!cycle2Done) {
+    if (!confirm('Pozor: Niektoré zápasy 2. cyklu nie sú odohrané. Naozaj chceš spustiť play-off?')) return;
+  }
+  if (!confirm('Spustiť play-off? Vygenerujú sa zápasy podľa sezónneho poradia.')) return;
+  generatePlayoff();
+  saveData(); render(); showToast('Play-off spustený');
+  // Prepni na PO tab
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-tab="playoff"]').classList.add('active');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-playoff').classList.add('active');
+}
+function resetPlayoff() {
+  if (!isLoggedIn()) return;
+  if (!confirm('Naozaj zrušiť play-off? Stratíš všetky play-off výsledky.')) return;
+  DATA.playoff = { generated: false, matches: [] };
+  saveData(); render(); showToast('Play-off zrušený');
 }
 function regenerateSchedule() {
   if (!isLoggedIn()) return;
   if (!confirm(`Pre-generovať rozpis pre cyklus ${DATA.cycle}? Stratíš všetky neodohrané zápasy (odohraté zostanú).`)) return;
-  const played = DATA.matches.filter(m => m.cycle === DATA.cycle && m.sets && m.sets.length > 0);
+  const played = DATA.matches.filter(m => m.cycle === DATA.cycle && m.sets && m.sets.length > 0 && m.type !== 'playoff');
   generateMatchesForCycle(DATA, DATA.cycle);
   played.forEach(p => {
     const m = DATA.matches.find(x => x.cycle === DATA.cycle && x.division === p.division &&
@@ -1725,21 +2062,25 @@ function regenerateSchedule() {
       m.date = p.date;
     }
   });
-  saveData();
-  render();
-  showToast('Rozpis prepočítaný');
+  saveData(); render(); showToast('Rozpis prepočítaný');
 }
 
 /* ---------- MODAL výsledok ---------- */
 function openResultModal(matchId) {
   if (!isLoggedIn()) return;
-  const m = DATA.matches.find(x => x.id === matchId);
+  const m = getMatchById(matchId);
   if (!m) return;
+  if (!m.p1Id || !m.p2Id) {
+    showToast('Hráči ešte nie sú určení (čaká sa na predchádzajúci zápas)', 'error');
+    return;
+  }
   CURRENT_MATCH_ID = matchId;
   const p1 = playerById(m.p1Id), p2 = playerById(m.p2Id);
   document.getElementById('modalP1Name').textContent = p1?.name || '?';
   document.getElementById('modalP2Name').textContent = p2?.name || '?';
-  document.getElementById('modalTitle').textContent = m.sets ? 'Upraviť výsledok' : 'Pridať výsledok';
+  let title = m.sets ? 'Upraviť výsledok' : 'Pridať výsledok';
+  if (m.type === 'playoff') title += ' · Play-off ' + m.round;
+  document.getElementById('modalTitle').textContent = title;
   document.getElementById('deleteResultBtn').style.display = m.sets ? 'inline-flex' : 'none';
   for (let i = 1; i <= 3; i++) {
     document.getElementById(`set${i}p1`).value = m.sets?.[i-1]?.[0] ?? '';
@@ -1751,7 +2092,7 @@ function openResultModal(matchId) {
 function closeModal(id) { document.getElementById(id).classList.remove('active'); CURRENT_MATCH_ID = null; }
 function saveResult() {
   if (!isLoggedIn()) return;
-  const m = DATA.matches.find(x => x.id === CURRENT_MATCH_ID);
+  const m = getMatchById(CURRENT_MATCH_ID);
   if (!m) return;
   const sets = [];
   for (let i = 1; i <= 3; i++) {
@@ -1765,28 +2106,36 @@ function saveResult() {
   if (s1 < 2 && s2 < 2) { showToast('Niektorý hráč musí vyhrať 2 sety', 'error'); return; }
   m.sets = sets;
   m.date = document.getElementById('matchDate').value || new Date().toISOString().slice(0, 10);
-  saveData();
-  closeModal('resultModal');
-  render();
-  showToast('Výsledok uložený');
+  if (m.type === 'playoff') propagatePlayoff();
+  saveData(); closeModal('resultModal'); render(); showToast('Výsledok uložený');
 }
 function deleteResult() {
   if (!isLoggedIn()) return;
   if (!confirm('Naozaj vymazať výsledok?')) return;
-  const m = DATA.matches.find(x => x.id === CURRENT_MATCH_ID);
+  const m = getMatchById(CURRENT_MATCH_ID);
   if (!m) return;
   m.sets = null; m.date = null;
-  saveData();
-  closeModal('resultModal');
-  render();
-  showToast('Výsledok vymazaný');
+  if (m.type === 'playoff') {
+    // Vymaž aj nasledovné PO zápasy ktoré sa odvíjali od tohto
+    DATA.playoff.matches.forEach(x => {
+      if ((x.p1Source && x.p1Source.round === m.round && x.p1Source.position === m.position) ||
+          (x.p2Source && x.p2Source.round === m.round && x.p2Source.position === m.position)) {
+        if (x.p1Source && x.p1Source.round === m.round && x.p1Source.position === m.position) x.p1Id = null;
+        if (x.p2Source && x.p2Source.round === m.round && x.p2Source.position === m.position) x.p2Id = null;
+        x.sets = null; x.date = null;
+      }
+    });
+  }
+  saveData(); closeModal('resultModal'); render(); showToast('Výsledok vymazaný');
 }
 
 /* ---------- DATA / STORAGE ---------- */
 function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }
 function loadData() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('stl_data_v1');
+    const raw = localStorage.getItem(STORAGE_KEY)
+              || localStorage.getItem('stl_data_v2')
+              || localStorage.getItem('stl_data_v1');
     if (raw) DATA = JSON.parse(raw);
     else DATA = getDemoData();
     DATA = migrateData(DATA);
@@ -1812,49 +2161,16 @@ function importData(event) {
       const imported = JSON.parse(e.target.result);
       if (!imported.players || !imported.matches) throw new Error('Neplatný súbor');
       DATA = migrateData(imported);
-      saveData();
-      render();
-      showToast('Dáta importované');
+      saveData(); render(); showToast('Dáta importované');
     } catch (err) { showToast('Chyba: ' + err.message, 'error'); }
   };
   reader.readAsText(file);
 }
 function resetAll() {
   if (!isLoggedIn()) return;
-  if (!confirm('Naozaj vynulovať všetko a načítať demo dáta?')) return;
+  if (!confirm('Naozaj vynulovať všetko a načítať novú sezónu STL 2026?')) return;
   DATA = getDemoData();
-  saveData();
-  render();
-  showToast('Reset hotový');
-}
-
-/* ---------- HELPERS ---------- */
-function playerById(id) { return DATA.players.find(p => p.id === id); }
-function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type === 'error' ? ' error' : '');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-function formatDate(s) {
-  if (!s) return '';
-  const d = new Date(s);
-  if (isNaN(d.getTime())) return s;
-  return d.toLocaleDateString('sk-SK', { day: 'numeric', month: 'numeric', year: 'numeric' });
-}
-function daysUntil(dateStr) {
-  if (!dateStr) return null;
-  const d = new Date(dateStr);
-  const now = new Date();
-  now.setHours(0,0,0,0);
-  d.setHours(0,0,0,0);
-  return Math.round((d - now) / 86400000);
-}
-function dayWord(n) {
-  if (n === 1) return 'deň';
-  if (n >= 2 && n <= 4) return 'dni';
-  return 'dní';
+  saveData(); render(); showToast('Reset hotový');
 }
 
 /* ---------- TABS ---------- */
@@ -1869,10 +2185,14 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 /* ---------- MAIN RENDER ---------- */
 function render() {
+  document.getElementById('seasonLabel').textContent = DATA.season;
   document.getElementById('cycleHeaderNum').textContent = DATA.cycle;
+  document.getElementById('totalCyclesLabel').textContent = DATA.seasonCycles;
   document.querySelectorAll('.cycle-num').forEach(el => el.textContent = DATA.cycle);
-  const total = DATA.matches.filter(m => m.cycle === DATA.cycle).length;
-  const played = DATA.matches.filter(m => m.cycle === DATA.cycle && m.sets && m.sets.length > 0).length;
+  document.querySelectorAll('.season-num').forEach(el => el.textContent = DATA.season);
+
+  const total = DATA.matches.filter(m => m.cycle === DATA.cycle && m.type !== 'playoff').length;
+  const played = DATA.matches.filter(m => m.cycle === DATA.cycle && m.type !== 'playoff' && m.sets && m.sets.length > 0).length;
   document.getElementById('totalMatchesPlayed').textContent = played;
   document.getElementById('totalMatchesScheduled').textContent = total;
 
@@ -1883,18 +2203,10 @@ function render() {
     const days = daysUntil(dl);
     badge.style.display = 'inline-flex';
     badge.classList.remove('warn', 'late');
-    if (days < 0) {
-      badge.classList.add('late');
-      badge.textContent = `⚠ Po termíne (${formatDate(dl)})`;
-    } else if (days <= 7) {
-      badge.classList.add('warn');
-      badge.textContent = `⏰ Termín: ${formatDate(dl)} (${days} ${dayWord(days)})`;
-    } else {
-      badge.textContent = `📅 Termín: ${formatDate(dl)}`;
-    }
-  } else {
-    badge.style.display = 'none';
-  }
+    if (days < 0) { badge.classList.add('late'); badge.textContent = `⚠ Po termíne`; }
+    else if (days <= 7) { badge.classList.add('warn'); badge.textContent = `⏰ ${days} ${dayWord(days)} do termínu`; }
+    else badge.textContent = `📅 Do ${formatDate(dl)}`;
+  } else badge.style.display = 'none';
 
   // Login icon
   const loginBtn = document.getElementById('loginIconBtn');
@@ -1908,9 +2220,14 @@ function render() {
     loginBtn.title = 'Prihlásenie do administrácie';
   }
 
+  // Init schedule cycle to current
+  if (scheduleCycle > DATA.cycle) scheduleCycle = DATA.cycle;
+  document.getElementById('scheduleCycleBtn').style.display = DATA.cycle >= 2 ? 'inline-flex' : 'none';
+
   renderStandings();
   renderSchedule();
   renderResults();
+  renderPlayoff();
   renderStats();
   renderPropozicie();
   renderGallery();

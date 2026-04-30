@@ -1,95 +1,107 @@
-# Spojená tenisová liga
+# Spojená tenisová liga 2026
 
-Webová stránka pre správu amatérskej tenisovej ligy s 3 divíziami (A/B/C),
-automatickými tabuľkami, rozpisom zápasov, štatistikami, propozíciami a galériou.
+Webová stránka pre správu amatérskej tenisovej ligy STL — sezóna 2026.
+
+**22 hráčov · 3 ligy · 2 cykly + play-off**
 
 ## Súbory v priečinku
 
-- `index.html` — celá stránka v jednom súbore (HTML + CSS + JS)
+- `index.html` — celá stránka v jednom súbore
 - `logo.svg` — hlavné logo
 - `favicon.svg` — ikona do záložky prehliadača
-- `propozicie.pdf` — *(nepovinné)* PDF s propozíciami, ktoré sa zobrazí na stránke
+- `propozicie.pdf` — *(nepovinné)* PDF s propozíciami
 
-## Prihlásenie do administrácie
+## Sezóna 2026 — rozdelenie hráčov
 
-**Predvolené prihlasovacie údaje:**
+**1. liga (8 hráčov):** Ján Jakubík, Michal Krško, Stanislav Ursíny, Miroslav Mikula, Peter Ondoš, Ivan Krajíček, Andrej Procházka, Anton Kubáň
 
-- Meno: `admin`
-- Heslo: `stl2026`
+**2. liga (7 hráčov):** Lukáš Holeša, Ján Zuzík, Marek Meššo, Ján Lokaj, Ludevít Lalík, Dávid Krško, Martin Kočitý
 
-**Hneď po prvom prihlásení** v záložke **Admin → Prihlasovacie údaje** zmeň
-heslo na vlastné. Heslo je uložené v prehliadači — funguje len pre bežných
-návštevníkov, takže nezadávaj nič super tajné.
+**3. liga (7 hráčov):** Simona Špiriaková, Miroslav Ozimy, Daniel Lokaj, Lucia Papanová, Ľubomír Korista, Peter Ďuroška, Štefan Miksák
 
-Bez prihlásenia môže každý stránku iba prezerať. **Pridať/zmeniť výsledok,
-upravovať hráčov, nahrávať fotky alebo meniť propozície môže iba prihlásený admin.**
+## Systém sezóny
 
----
+- 2 cykly (každý hrá s každým v rámci svojej ligy)
+- Hráči zostávajú v rovnakej lige cez celú sezónu
+- Body z oboch cyklov sa kumulujú → určujú nasadenie do play-off
+- Po skončení 2. cyklu → play-off vo všetkých 3 ligách
 
-## Aktualizácia stránky na GitHube (po zmenách)
-
-Keď ti pripravím novú verziu súboru `index.html` (alebo iných), nahraj ju takto:
-
-1. Choď na svoj repozitár na GitHube
-2. Klikni na súbor, ktorý chceš nahradiť (napr. `index.html`)
-3. Vpravo hore klikni **ikonu ceruzky** (Upraviť) alebo **„Pridať súbor → Nahrať súbory"**
-4. Pretiahni nový súbor a klikni **Commit changes**
-5. Počkaj 1–2 minúty — stránka sa automaticky aktualizuje
-
-**Dáta zostávajú zachované** (hráči, výsledky, fotky, propozície sú v
-prehliadači). Pred väčšími zmenami si ich však pre istotu zálohuj cez
-**Admin → Dáta → Export JSON**.
-
----
-
-## Sekcie stránky
-
-- **Tabuľky** — automaticky prepočítané poradie v každej divízii
-- **Rozpis** — všetky zápasy cyklu rozdelené do kôl
-- **Výsledky** — chronológia odohraných zápasov
-- **Štatistiky** — celkové čísla + lídri kategórií (najviac výhier, najlepšia
-  šnúra, najsuverénnejší, najurputnejší...)
-- **Propozície** — pravidlá ligy (text + voliteľný PDF na stiahnutie)
-- **Galéria** — fotky zo zápasov a udalostí
-- **Admin** — správa všetkého (po prihlásení)
-
-## Bodovanie podľa setov
+### Bodovanie podľa setov
 
 | Výsledok | Víťaz | Porazený |
 |---|---|---|
-| 2:0 v setoch | **3 body** | 0 bodov |
-| 2:1 v setoch | **2 body** | 1 bod |
+| 2:0 | **3 body** | 0 bodov |
+| 2:1 | **2 body** | 1 bod |
 
-Pri rovnosti bodov rozhoduje: vzájomný zápas → rozdiel setov → rozdiel gemov → abeceda.
+### Play-off
 
-## Postupy / pády po cykle
+- **8 hráčov (1. liga):** štvrťfinále (1v8, 4v5, 3v6, 2v7) → semifinále → finále
+- **7 hráčov (2. a 3. liga):** 1. miesto má voľný lístok do semifinále, ŠF (4v5, 3v6, 2v7) → SF → finále
+- Víťazi sa automaticky posúvajú do ďalších kôl
 
-- **A** → poslední 2 padajú do B
-- **B** → prví 2 postupujú do A, poslední 2 padajú do C
-- **C** → prví 2 postupujú do B
+## Prihlásenie do administrácie
+
+**Predvolené:** meno `admin` · heslo `stl2026`
+
+Po prvom prihlásení choď do **Admin → Prihlasovacie údaje** a zmeň heslo
+na vlastné. Bez prihlásenia môže každý stránku iba prezerať — výsledky
+a zmeny môže robiť iba admin.
+
+## Sekcie stránky
+
+- **Tabuľky** — sezónny súčet alebo samostatne za cyklus
+- **Rozpis** — zápasy cyklu rozdelené do kôl
+- **Výsledky** — chronológia odohraných zápasov
+- **Play-off** — bracket s automatickým posúvaním víťazov
+- **Štatistiky** — čísla a lídri v 8 kategóriách
+- **Propozície** — pravidlá ligy (text + voliteľný PDF)
+- **Galéria** — fotky zo zápasov
+- **Admin** — všetka správa (po prihlásení)
+
+## Workflow počas sezóny
+
+1. **Cyklus 1** prebieha → admin pridáva výsledky cez záložku **Rozpis**
+2. Po dokončení cyklu 1 → admin v **Admin → Cykly a play-off** klikne **„Spustiť cyklus 2"**
+3. **Cyklus 2** prebieha rovnako, hráči zostávajú vo svojich ligách
+4. Po dokončení cyklu 2 → admin klikne **„🏆 Spustiť play-off"**
+5. Bracket sa vygeneruje podľa sezónnej tabuľky (súčet bodov z oboch cyklov)
+6. Admin pridáva výsledky play-off zápasov, víťazi sa posúvajú automaticky
+7. Po finále stránka vyhlási víťaza zlatým prúžkom
 
 ---
 
-## Ako pridať PDF propozícií
+## Aktualizácia stránky na GitHube
 
-1. Pripravený PDF si pomenuj napr. `propozicie.pdf`
-2. Nahraj ho na GitHub do toho istého priečinka ako `index.html`
-3. V stránke **Propozície → admin** zadaj presný názov súboru (`propozicie.pdf`)
-4. Klikni **Uložiť** — na stránke sa objaví karta s odkazom na PDF
+Keď ti pripravím novú verziu súboru `index.html` (alebo iných), nahraj ju takto:
+
+1. Choď na svoj repozitár
+2. Klikni **„Pridať súbor → Nahrať súbory"**
+3. Pretiahni nový súbor → **Commit changes**
+4. Počkaj 1–2 minúty — stránka sa automaticky aktualizuje
+
+Súbory s rovnakým názvom GitHub automaticky prepíše. Stará verzia zostáva v histórii.
+
+## Migrácia dát po update
+
+Pri prvom otvorení novej verzie sa stará dátová štruktúra (z minulých
+verzií) automaticky upgraduje. Ak boli v databáze ešte staré demo mená
+(Adam Kováč atď.), automaticky sa nahradia novým STL 2026 zoznamom.
+
+**Ak chceš resetnúť na čistý štart STL 2026:**
+Admin → Dáta → **Vynulovať všetko (STL 2026)**
 
 ## Zálohovanie
 
-Pred každou väčšou zmenou (napr. ukončenie cyklu) si stiahni zálohu:
+Pred každou väčšou zmenou (ukončenie cyklu, spustenie play-off):
 **Admin → Dáta → ⬇ Export JSON**
 
-Záloha obsahuje aj fotky, propozície, hráčov a všetky výsledky.
+Záloha obsahuje hráčov, výsledky, propozície, fotky a play-off bracket.
 V prípade problému ju vieš znovu nahrať cez **Import JSON**.
 
 ## Tipy
 
-- Fotky sa pri nahraní automaticky zmenšia (max šírka 1400px), aby zaberali
-  menej miesta. Limit prehliadača je cca 5–10 MB pre všetky fotky spolu.
-- Termín cyklu sa zobrazuje v hlavičke aj v rozpise. 7 dní pred koncom sa
-  zafarbí oranžovo, po termíne červeno.
-- Stránka funguje aj na mobile — celá tabuľka sa zúži a niektoré stĺpce
-  sa skryjú pre lepšiu čitateľnosť.
+- **Tabuľky** — vpravo hore tlačidlo prepína medzi „sezónny súčet" a samostatné cykly
+- **Rozpis** — od cyklu 2 sa zobrazí prepínač cyklu 1/2
+- **Play-off** — pri 7 hráčoch má 1. miesto voľný lístok (zobrazí sa rovno v semifinále)
+- Fotky sa pri nahraní automaticky zmenšia (max šírka 1400px)
+- Termín cyklu sa zobrazuje v hlavičke; 7 dní pred koncom oranžovo, po termíne červeno
